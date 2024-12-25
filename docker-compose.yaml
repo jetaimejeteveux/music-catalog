@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    container_name: local-postgres-music-catalog
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: music_db
+
+    volumes:
+      - /Users/firman/project/music-catalog/postgres_db:/var/lib/postgresql/data
+
