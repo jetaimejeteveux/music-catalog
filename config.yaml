@@ -1,0 +1,6 @@
+service:
+  port: "9876"
+  secretJWT: "random-secret-key"
+
+database:
+  dataSourceName: "postgres//admin:root@localhost:5432/music_db?sslmode=disable"
