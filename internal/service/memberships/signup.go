@@ -17,7 +17,7 @@ func (s *service) Signup(request memberships.SignupRequest) error {
 		return errors.New("User already exists")
 	}
 
-	bcrypt, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Error().Err(err).Msg("Error generating bcrypt hash")
 		return err
@@ -26,7 +26,7 @@ func (s *service) Signup(request memberships.SignupRequest) error {
 	model := memberships.User{
 		Username:  request.Username,
 		Email:     request.Email,
-		Password:  string(bcrypt),
+		Password:  string(hashedPassword),
 		CreatedBy: request.Email,
 		UpdatedBy: request.Email,
 	}
