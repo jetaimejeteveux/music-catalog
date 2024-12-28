@@ -3,4 +3,4 @@ service:
   secretJWT: "random-secret-key"
 
 database:
-  dataSourceName: "postgres//admin:root@localhost:5432/music_db?sslmode=disable"
+  dataSourceName: "postgres://admin:root@localhost:5431/music_db?sslmode=disable"
