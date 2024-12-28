@@ -1,11 +1,11 @@
 package memberships
 
 import (
-	"database/sql"
 	"github.com/jetaimejeteveux/music-catalog/internal/configs"
 	"github.com/jetaimejeteveux/music-catalog/internal/models/memberships"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
+	"gorm.io/gorm"
 	"strings"
 	"testing"
 )
@@ -35,7 +35,7 @@ func Test_service_Signup(t *testing.T) {
 			},
 			wantErr: false,
 			mockFn: func(args args) {
-				mockRepo.EXPECT().GetUser(args.request.Email, args.request.Username, uint(0)).Return(nil, sql.ErrNoRows)
+				mockRepo.EXPECT().GetUser(args.request.Email, args.request.Username, uint(0)).Return(nil, gorm.ErrRecordNotFound)
 				mockRepo.EXPECT().CreateUser(gomock.Any()).Return(nil)
 			},
 		},
@@ -83,7 +83,7 @@ func Test_service_Signup(t *testing.T) {
 			},
 			wantErr: true,
 			mockFn: func(args args) {
-				mockRepo.EXPECT().GetUser(args.request.Email, args.request.Username, uint(0)).Return(nil, sql.ErrNoRows)
+				mockRepo.EXPECT().GetUser(args.request.Email, args.request.Username, uint(0)).Return(nil, gorm.ErrRecordNotFound)
 				// No need to expect CreateUser since bcrypt will fail before reaching that point
 			},
 		},
@@ -98,7 +98,7 @@ func Test_service_Signup(t *testing.T) {
 			},
 			wantErr: true,
 			mockFn: func(args args) {
-				mockRepo.EXPECT().GetUser(args.request.Email, args.request.Username, uint(0)).Return(nil, sql.ErrNoRows)
+				mockRepo.EXPECT().GetUser(args.request.Email, args.request.Username, uint(0)).Return(nil, gorm.ErrRecordNotFound)
 				mockRepo.EXPECT().CreateUser(gomock.Any()).Return(assert.AnError)
 			},
 		},
