@@ -1,6 +1,7 @@
 package memberships
 
 import (
+	"database/sql"
 	"errors"
 	"github.com/jetaimejeteveux/music-catalog/internal/models/memberships"
 	"github.com/rs/zerolog/log"
@@ -8,8 +9,8 @@ import (
 )
 
 func (s *service) Signup(request memberships.SignupRequest) error {
-	existingUser, err := s.repository.GetUser(request.Email, request.Email, 0)
-	if err != nil {
+	existingUser, err := s.repository.GetUser(request.Email, request.Username, 0)
+	if err != nil && err != sql.ErrNoRows {
 		log.Error().Err(err).Msg("Error getting existing user")
 		return err
 	}

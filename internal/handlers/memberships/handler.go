@@ -5,6 +5,7 @@ import (
 	"github.com/jetaimejeteveux/music-catalog/internal/models/memberships"
 )
 
+//go:generate mockgen -source=handler.go -destination=handler_mock.go -package=memberships
 type service interface {
 	Signup(request memberships.SignupRequest) error
 }
@@ -23,5 +24,5 @@ func NewHandler(api *gin.Engine, service service) *Handler {
 
 func (h *Handler) RegisterRoute() {
 	router := h.Group("memberships")
-	router.POST("/sign-up", h.Signup)
+	router.POST("/signup", h.Signup)
 }
