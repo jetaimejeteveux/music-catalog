@@ -1,3 +1,5 @@
 .idea
 sum.go
 sum_test.go
+coverage.html
+coverage.out
