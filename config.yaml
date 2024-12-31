@@ -6,5 +6,5 @@ database:
   dataSourceName: "postgres://admin:root@localhost:5431/music_db?sslmode=disable"
 
 spotify:
-  clientID: ""
-  clientSecret: ""
+  clientID: "a80527c1d24b428b8bca1765b7713052"
+  clientSecret: "259df4aa5f4640deb73b28590d373064"
