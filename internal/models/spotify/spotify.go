@@ -9,7 +9,7 @@ type SearchResponse struct {
 
 type SpotifyTrackObject struct {
 	// album related fields
-	AlbumAlbumType   string   `json:"albumType"`
+	AlbumType        string   `json:"albumType"`
 	AlbumTotalTracks int      `json:"totalTracks"`
 	AlbumImagesUrl   []string `json:"albumImagesUrl"`
 	AlbumName        string   `json:"albumName"`

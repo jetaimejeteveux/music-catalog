@@ -40,7 +40,7 @@ func Test_service_Search(t *testing.T) {
 				Offset: 0,
 				Items: []spotifyModel.SpotifyTrackObject{
 					{
-						AlbumAlbumType:   "album",
+						AlbumType:        "album",
 						AlbumTotalTracks: 22,
 						AlbumImagesUrl:   []string{"https://i.scdn.co/image/ab67616d0000b273e8b066f70c206551210d902b", "https://i.scdn.co/image/ab67616d00001e02e8b066f70c206551210d902b", "https://i.scdn.co/image/ab67616d00004851e8b066f70c206551210d902b"},
 						AlbumName:        "Bohemian Rhapsody (The Original Soundtrack)",
@@ -50,7 +50,7 @@ func Test_service_Search(t *testing.T) {
 						Name:             "Bohemian Rhapsody",
 					},
 					{
-						AlbumAlbumType:   "album",
+						AlbumType:        "album",
 						AlbumTotalTracks: 12,
 						AlbumImagesUrl:   []string{"https://i.scdn.co/image/ab67616d0000b273e319baafd16e84f0408af2a0", "https://i.scdn.co/image/ab67616d00001e02e319baafd16e84f0408af2a0", "https://i.scdn.co/image/ab67616d00004851e319baafd16e84f0408af2a0"},
 						AlbumName:        "A Night At The Opera (2011 Remaster)",

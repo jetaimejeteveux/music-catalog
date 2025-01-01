@@ -39,7 +39,7 @@ func modelToResponse(data *spotifyRepo.SpotifySearchResponse) *spotifyModel.Sear
 		}
 
 		items = append(items, spotifyModel.SpotifyTrackObject{
-			AlbumAlbumType:   item.Album.AlbumType,
+			AlbumType:        item.Album.AlbumType,
 			AlbumTotalTracks: item.Album.TotalTracks,
 			AlbumImagesUrl:   imageUrl,
 			AlbumName:        item.Album.Name,
