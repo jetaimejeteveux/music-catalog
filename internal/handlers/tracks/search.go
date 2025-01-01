@@ -16,13 +16,11 @@ func (h *Handler) Search(c *gin.Context) {
 	pageSize, err := strconv.Atoi(pageSizeStr)
 	if err != nil {
 		pageSize = 10
-		return
 	}
 
 	pageIndex, err := strconv.Atoi(pageIndexStr)
 	if err != nil {
 		pageIndex = 1
-		return
 	}
 
 	response, err := h.service.Search(ctx, query, pageSize, pageIndex)

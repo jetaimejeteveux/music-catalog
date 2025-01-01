@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-func (o *outbond) Search(ctx context.Context, query string, limit, offset int) (*SpotifySearchResponse, error) {
+func (o *outbond) Search(ctx context.Context, query string, offset, limit int) (*SpotifySearchResponse, error) {
 	baseUrl := `https://api.spotify.com/v1/search`
 
 	params := url.Values{}
@@ -21,7 +21,7 @@ func (o *outbond) Search(ctx context.Context, query string, limit, offset int) (
 
 	urlPath := fmt.Sprintf("%s?%s", baseUrl, params.Encode())
 
-	req, err := http.NewRequest(http.MethodPost, urlPath, nil)
+	req, err := http.NewRequest(http.MethodGet, urlPath, nil)
 	if err != nil {
 		log.Error().Err(err).Msg("Error creating new request to spotify")
 		return nil, err

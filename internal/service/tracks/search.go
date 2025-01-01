@@ -33,7 +33,7 @@ func modelToResponse(data *spotifyRepo.SpotifySearchResponse) *spotifyModel.Sear
 			artistsName[idx] = artists.Name
 		}
 
-		imageUrl := make([]string, len(item.Artists))
+		imageUrl := make([]string, len(item.Album.Images))
 		for idx, image := range item.Album.Images {
 			imageUrl[idx] = image.URL
 		}
