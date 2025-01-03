@@ -6,6 +6,7 @@ import (
 	membershipHandler "github.com/jetaimejeteveux/music-catalog/internal/handlers/memberships"
 	trackHandler "github.com/jetaimejeteveux/music-catalog/internal/handlers/tracks"
 	membershipModel "github.com/jetaimejeteveux/music-catalog/internal/models/memberships"
+	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
 	membershipRepo "github.com/jetaimejeteveux/music-catalog/internal/repository/memberships"
 	"github.com/jetaimejeteveux/music-catalog/internal/repository/spotify"
 	membershipService "github.com/jetaimejeteveux/music-catalog/internal/service/memberships"
@@ -37,6 +38,7 @@ func main() {
 		log.Fatalf("fail to connect to database %v", err)
 	}
 	db.AutoMigrate(&membershipModel.User{})
+	db.AutoMigrate(&trackactivites.TrackActivity{})
 
 	r := gin.Default()
 

@@ -3,11 +3,12 @@ package tracks
 import (
 	"context"
 	spotifyModel "github.com/jetaimejeteveux/music-catalog/internal/models/spotify"
+	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
 	spotifyRepo "github.com/jetaimejeteveux/music-catalog/internal/repository/spotify"
 	"github.com/rs/zerolog/log"
 )
 
-func (s *service) Search(ctx context.Context, query string, pageSize, pageIndex int) (*spotifyModel.SearchResponse, error) {
+func (s *service) Search(ctx context.Context, query string, pageSize, pageIndex int, userId uint) (*spotifyModel.SearchResponse, error) {
 	limit := pageSize
 	offset := (pageIndex - 1) * limit
 
@@ -16,11 +17,21 @@ func (s *service) Search(ctx context.Context, query string, pageSize, pageIndex 
 		log.Error().Err(err).Msg("error Spotify Outbond Search")
 		return nil, err
 	}
+	var trackIds []string
+	for idx, item := range trackDetails.Tracks.Items {
+		trackIds[idx] = item.Id
+	}
 
-	return modelToResponse(trackDetails), nil
+	trackActivities, err := s.trackActivitiesRepo.GetBulkSpotifyIDs(ctx, userId, trackIds)
+	if err != nil {
+		log.Error().Err(err).Msg("error Get trackActivities")
+		return nil, err
+	}
+
+	return modelToResponse(trackDetails, trackActivities), nil
 }
 
-func modelToResponse(data *spotifyRepo.SpotifySearchResponse) *spotifyModel.SearchResponse {
+func modelToResponse(data *spotifyRepo.SpotifySearchResponse, mapTrackActivities map[string]trackactivites.TrackActivity) *spotifyModel.SearchResponse {
 	if data == nil {
 		return nil
 	}
@@ -51,6 +62,7 @@ func modelToResponse(data *spotifyRepo.SpotifySearchResponse) *spotifyModel.Sear
 			Explicit: item.Explicit,
 			Id:       item.Id,
 			Name:     item.Name,
+			IsLiked:  mapTrackActivities[item.Id].IsLiked,
 		})
 	}
 
