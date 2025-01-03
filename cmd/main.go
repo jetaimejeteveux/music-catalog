@@ -9,6 +9,7 @@ import (
 	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
 	membershipRepo "github.com/jetaimejeteveux/music-catalog/internal/repository/memberships"
 	"github.com/jetaimejeteveux/music-catalog/internal/repository/spotify"
+	"github.com/jetaimejeteveux/music-catalog/internal/repository/trackactivities"
 	membershipService "github.com/jetaimejeteveux/music-catalog/internal/service/memberships"
 	trackService "github.com/jetaimejeteveux/music-catalog/internal/service/tracks"
 	"github.com/jetaimejeteveux/music-catalog/pkg/httpclient"
@@ -47,10 +48,11 @@ func main() {
 	// init repo
 	membershipRepo := membershipRepo.NewRepository(db)
 	spotifyOutbond := spotify.NewSpotifyOutbond(cfg, httpClient)
+	trackactivities := trackactivities.NewRepository(db)
 
 	// init service
 	membershipSvc := membershipService.NewService(cfg, membershipRepo)
-	trackSvc := trackService.NewService(spotifyOutbond)
+	trackSvc := trackService.NewService(spotifyOutbond, trackactivities)
 
 	//init handler
 	membershipHandler := membershipHandler.NewHandler(r, membershipSvc)
