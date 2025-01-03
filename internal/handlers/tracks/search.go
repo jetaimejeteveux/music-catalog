@@ -12,6 +12,7 @@ func (h *Handler) Search(c *gin.Context) {
 	query := c.Query("query")
 	pageSizeStr := c.Query("pageSize")
 	pageIndexStr := c.Query("pageIndex")
+	userId := c.GetUint("userId")
 
 	pageSize, err := strconv.Atoi(pageSizeStr)
 	if err != nil {
@@ -23,7 +24,7 @@ func (h *Handler) Search(c *gin.Context) {
 		pageIndex = 1
 	}
 
-	response, err := h.service.Search(ctx, query, pageSize, pageIndex)
+	response, err := h.service.Search(ctx, query, pageSize, pageIndex, userId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
