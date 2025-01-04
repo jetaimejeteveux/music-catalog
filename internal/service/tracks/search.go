@@ -3,7 +3,7 @@ package tracks
 import (
 	"context"
 	spotifyModel "github.com/jetaimejeteveux/music-catalog/internal/models/spotify"
-	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
+	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivities"
 	spotifyRepo "github.com/jetaimejeteveux/music-catalog/internal/repository/spotify"
 	"github.com/rs/zerolog/log"
 )
@@ -31,7 +31,7 @@ func (s *service) Search(ctx context.Context, query string, pageSize, pageIndex 
 	return modelToResponse(trackDetails, trackActivities), nil
 }
 
-func modelToResponse(data *spotifyRepo.SpotifySearchResponse, mapTrackActivities map[string]trackactivites.TrackActivity) *spotifyModel.SearchResponse {
+func modelToResponse(data *spotifyRepo.SpotifySearchResponse, mapTrackActivities map[string]trackactivities.TrackActivity) *spotifyModel.SearchResponse {
 	if data == nil {
 		return nil
 	}

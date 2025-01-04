@@ -1,4 +1,4 @@
-package trackactivites
+package trackactivities
 
 import "gorm.io/gorm"
 

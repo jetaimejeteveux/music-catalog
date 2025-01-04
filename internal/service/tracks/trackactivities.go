@@ -3,19 +3,19 @@ package tracks
 import (
 	"context"
 	"fmt"
-	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
+	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivities"
 	"github.com/rs/zerolog/log"
 	"gorm.io/gorm"
 )
 
-func (s *service) UpsertTrackActivities(ctx context.Context, userId uint, request trackactivites.TrackActivityReqest) error {
+func (s *service) UpsertTrackActivities(ctx context.Context, userId uint, request trackactivities.TrackActivityReqest) error {
 	activity, err := s.trackActivitiesRepo.Get(ctx, userId, request.SpotifyId)
 	if err != nil && err != gorm.ErrRecordNotFound {
 		log.Error().Err(err).Msg("error getting track activities")
 		return err
 	}
 	if err == gorm.ErrRecordNotFound || activity == nil {
-		err = s.trackActivitiesRepo.Create(ctx, trackactivites.TrackActivity{
+		err = s.trackActivitiesRepo.Create(ctx, trackactivities.TrackActivity{
 			UserId:    userId,
 			SpotifyId: request.SpotifyId,
 			IsLiked:   request.IsLiked,

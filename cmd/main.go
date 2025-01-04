@@ -6,10 +6,10 @@ import (
 	membershipHandler "github.com/jetaimejeteveux/music-catalog/internal/handlers/memberships"
 	trackHandler "github.com/jetaimejeteveux/music-catalog/internal/handlers/tracks"
 	membershipModel "github.com/jetaimejeteveux/music-catalog/internal/models/memberships"
-	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
+	trackActivityModel "github.com/jetaimejeteveux/music-catalog/internal/models/trackactivities"
 	membershipRepo "github.com/jetaimejeteveux/music-catalog/internal/repository/memberships"
 	"github.com/jetaimejeteveux/music-catalog/internal/repository/spotify"
-	"github.com/jetaimejeteveux/music-catalog/internal/repository/trackactivities"
+	trackActivityRepo "github.com/jetaimejeteveux/music-catalog/internal/repository/trackactivities"
 	membershipService "github.com/jetaimejeteveux/music-catalog/internal/service/memberships"
 	trackService "github.com/jetaimejeteveux/music-catalog/internal/service/tracks"
 	"github.com/jetaimejeteveux/music-catalog/pkg/httpclient"
@@ -39,7 +39,7 @@ func main() {
 		log.Fatalf("fail to connect to database %v", err)
 	}
 	db.AutoMigrate(&membershipModel.User{})
-	db.AutoMigrate(&trackactivites.TrackActivity{})
+	db.AutoMigrate(&trackActivityModel.TrackActivity{})
 
 	r := gin.Default()
 
@@ -48,7 +48,7 @@ func main() {
 	// init repo
 	membershipRepo := membershipRepo.NewRepository(db)
 	spotifyOutbond := spotify.NewSpotifyOutbond(cfg, httpClient)
-	trackactivities := trackactivities.NewRepository(db)
+	trackactivities := trackActivityRepo.NewRepository(db)
 
 	// init service
 	membershipSvc := membershipService.NewService(cfg, membershipRepo)

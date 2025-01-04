@@ -2,14 +2,14 @@ package tracks
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
+	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivities"
 	"net/http"
 )
 
 func (h *Handler) UpsertTrackActivities(c *gin.Context) {
 	ctx := c.Request.Context()
 
-	var req trackactivites.TrackActivityReqest
+	var req trackactivities.TrackActivityReqest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
