@@ -24,5 +24,5 @@ func (h *Handler) UpsertTrackActivities(c *gin.Context) {
 		})
 		return
 	}
-	c.Status(http.StatusCreated)
+	c.Status(http.StatusOK)
 }

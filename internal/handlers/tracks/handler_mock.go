@@ -14,7 +14,7 @@ import (
 	reflect "reflect"
 
 	spotify "github.com/jetaimejeteveux/music-catalog/internal/models/spotify"
-	trackactivites "github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
+	trackactivities "github.com/jetaimejeteveux/music-catalog/internal/models/trackactivities"
 	gomock "go.uber.org/mock/gomock"
 )
 
@@ -58,7 +58,7 @@ func (mr *MockserviceMockRecorder) Search(ctx, query, pageSize, pageIndex, userI
 }
 
 // UpsertTrackActivities mocks base method.
-func (m *Mockservice) UpsertTrackActivities(ctx context.Context, userId uint, request trackactivites.TrackActivityReqest) error {
+func (m *Mockservice) UpsertTrackActivities(ctx context.Context, userId uint, request trackactivities.TrackActivityRequest) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpsertTrackActivities", ctx, userId, request)
 	ret0, _ := ret[0].(error)

@@ -13,7 +13,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	trackactivites "github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
+	trackactivities "github.com/jetaimejeteveux/music-catalog/internal/models/trackactivities"
 	spotify "github.com/jetaimejeteveux/music-catalog/internal/repository/spotify"
 	gomock "go.uber.org/mock/gomock"
 )
@@ -82,7 +82,7 @@ func (m *MocktrackActivitiesRepository) EXPECT() *MocktrackActivitiesRepositoryM
 }
 
 // Create mocks base method.
-func (m *MocktrackActivitiesRepository) Create(ctx context.Context, model trackactivites.TrackActivity) error {
+func (m *MocktrackActivitiesRepository) Create(ctx context.Context, model trackactivities.TrackActivity) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", ctx, model)
 	ret0, _ := ret[0].(error)
@@ -96,10 +96,10 @@ func (mr *MocktrackActivitiesRepositoryMockRecorder) Create(ctx, model any) *gom
 }
 
 // Get mocks base method.
-func (m *MocktrackActivitiesRepository) Get(ctx context.Context, userId uint, spotifyId string) (*trackactivites.TrackActivity, error) {
+func (m *MocktrackActivitiesRepository) Get(ctx context.Context, userId uint, spotifyId string) (*trackactivities.TrackActivity, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Get", ctx, userId, spotifyId)
-	ret0, _ := ret[0].(*trackactivites.TrackActivity)
+	ret0, _ := ret[0].(*trackactivities.TrackActivity)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -111,10 +111,10 @@ func (mr *MocktrackActivitiesRepositoryMockRecorder) Get(ctx, userId, spotifyId 
 }
 
 // GetBulkSpotifyIDs mocks base method.
-func (m *MocktrackActivitiesRepository) GetBulkSpotifyIDs(ctx context.Context, userId uint, spotifyIds []string) (map[string]trackactivites.TrackActivity, error) {
+func (m *MocktrackActivitiesRepository) GetBulkSpotifyIDs(ctx context.Context, userId uint, spotifyIds []string) (map[string]trackactivities.TrackActivity, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetBulkSpotifyIDs", ctx, userId, spotifyIds)
-	ret0, _ := ret[0].(map[string]trackactivites.TrackActivity)
+	ret0, _ := ret[0].(map[string]trackactivities.TrackActivity)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -126,7 +126,7 @@ func (mr *MocktrackActivitiesRepositoryMockRecorder) GetBulkSpotifyIDs(ctx, user
 }
 
 // Update mocks base method.
-func (m *MocktrackActivitiesRepository) Update(ctx context.Context, model trackactivites.TrackActivity) error {
+func (m *MocktrackActivitiesRepository) Update(ctx context.Context, model trackactivities.TrackActivity) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", ctx, model)
 	ret0, _ := ret[0].(error)

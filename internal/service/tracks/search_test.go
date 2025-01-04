@@ -3,6 +3,7 @@ package tracks
 import (
 	"context"
 	spotifyModel "github.com/jetaimejeteveux/music-catalog/internal/models/spotify"
+	"github.com/jetaimejeteveux/music-catalog/internal/models/trackactivities"
 	spotifyRepo "github.com/jetaimejeteveux/music-catalog/internal/repository/spotify"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
@@ -15,7 +16,10 @@ func Test_service_Search(t *testing.T) {
 	defer mockCtrl.Finish()
 
 	mockSpotifyOutbond := NewMockSpotifyOutbond(mockCtrl)
+	mockTrackActivitiesRepo := NewMocktrackActivitiesRepository(mockCtrl)
 	next := "https://api.spotify.com/v1/search?query=bohemian+rhapsody&type=track&market=ID&locale=en-US%2Cen%3Bq%3D0.9&offset=10&limit=10"
+	isLikeTrue := true
+	isLikeFalse := false
 	type args struct {
 		query     string
 		pageSize  int
@@ -48,6 +52,7 @@ func Test_service_Search(t *testing.T) {
 						Explicit:         false,
 						Id:               "3z8h0TU7ReDPLIbEnYhWZb",
 						Name:             "Bohemian Rhapsody",
+						IsLiked:          &isLikeTrue,
 					},
 					{
 						AlbumType:        "album",
@@ -58,6 +63,7 @@ func Test_service_Search(t *testing.T) {
 						Explicit:         false,
 						Id:               "4u7EnebtmKWzUH433cf5Qv",
 						Name:             "Bohemian Rhapsody - Remastered 2011",
+						IsLiked:          &isLikeFalse,
 					},
 				},
 				Total: 905,
@@ -131,6 +137,15 @@ func Test_service_Search(t *testing.T) {
 						},
 					},
 				}, nil)
+				mockTrackActivitiesRepo.EXPECT().GetBulkSpotifyIDs(gomock.Any(), uint(1), []string{"3z8h0TU7ReDPLIbEnYhWZb", "4u7EnebtmKWzUH433cf5Qv"}).
+					Return(map[string]trackactivities.TrackActivity{
+						"3z8h0TU7ReDPLIbEnYhWZb": {
+							IsLiked: &isLikeTrue,
+						},
+						"4u7EnebtmKWzUH433cf5Qv": {
+							IsLiked: &isLikeFalse,
+						},
+					}, nil)
 			},
 		},
 		{
@@ -151,9 +166,10 @@ func Test_service_Search(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.mockFn(tt.args)
 			s := &service{
-				spotifyOutbond: mockSpotifyOutbond,
+				spotifyOutbond:      mockSpotifyOutbond,
+				trackActivitiesRepo: mockTrackActivitiesRepo,
 			}
-			got, err := s.Search(context.Background(), tt.args.query, tt.args.pageSize, tt.args.pageIndex)
+			got, err := s.Search(context.Background(), tt.args.query, tt.args.pageSize, tt.args.pageIndex, uint(1))
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Search() error = %v, wantErr %v", err, tt.wantErr)
 				return
