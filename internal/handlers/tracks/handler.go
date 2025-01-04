@@ -11,7 +11,7 @@ import (
 //go:generate mockgen -source=handler.go -destination=handler_mock.go -package=tracks
 type service interface {
 	Search(ctx context.Context, query string, pageSize, pageIndex int, userId uint) (*spotifyModel.SearchResponse, error)
-	UpsertTrackActivities(ctx context.Context, userId uint, request trackactivities.TrackActivityReqest) error
+	UpsertTrackActivities(ctx context.Context, userId uint, request trackactivities.TrackActivityRequest) error
 }
 
 type Handler struct {

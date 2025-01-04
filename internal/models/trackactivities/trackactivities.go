@@ -11,7 +11,7 @@ type TrackActivity struct {
 	UpdatedBy string `gorm:"not null"`
 }
 
-type TrackActivityReqest struct {
+type TrackActivityRequest struct {
 	SpotifyId string `json:"spotifyID"`
 	IsLiked   *bool  `json:"isLiked"`
 }
