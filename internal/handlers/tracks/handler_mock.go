@@ -14,6 +14,7 @@ import (
 	reflect "reflect"
 
 	spotify "github.com/jetaimejeteveux/music-catalog/internal/models/spotify"
+	trackactivites "github.com/jetaimejeteveux/music-catalog/internal/models/trackactivites"
 	gomock "go.uber.org/mock/gomock"
 )
 
@@ -42,16 +43,30 @@ func (m *Mockservice) EXPECT() *MockserviceMockRecorder {
 }
 
 // Search mocks base method.
-func (m *Mockservice) Search(ctx context.Context, query string, pageSize, pageIndex int) (*spotify.SearchResponse, error) {
+func (m *Mockservice) Search(ctx context.Context, query string, pageSize, pageIndex int, userId uint) (*spotify.SearchResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Search", ctx, query, pageSize, pageIndex)
+	ret := m.ctrl.Call(m, "Search", ctx, query, pageSize, pageIndex, userId)
 	ret0, _ := ret[0].(*spotify.SearchResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Search indicates an expected call of Search.
-func (mr *MockserviceMockRecorder) Search(ctx, query, pageSize, pageIndex any) *gomock.Call {
+func (mr *MockserviceMockRecorder) Search(ctx, query, pageSize, pageIndex, userId any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Search", reflect.TypeOf((*Mockservice)(nil).Search), ctx, query, pageSize, pageIndex)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Search", reflect.TypeOf((*Mockservice)(nil).Search), ctx, query, pageSize, pageIndex, userId)
+}
+
+// UpsertTrackActivities mocks base method.
+func (m *Mockservice) UpsertTrackActivities(ctx context.Context, userId uint, request trackactivites.TrackActivityReqest) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpsertTrackActivities", ctx, userId, request)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpsertTrackActivities indicates an expected call of UpsertTrackActivities.
+func (mr *MockserviceMockRecorder) UpsertTrackActivities(ctx, userId, request any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpsertTrackActivities", reflect.TypeOf((*Mockservice)(nil).UpsertTrackActivities), ctx, userId, request)
 }
