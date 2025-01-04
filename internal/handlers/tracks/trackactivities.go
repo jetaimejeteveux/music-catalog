@@ -9,7 +9,7 @@ import (
 func (h *Handler) UpsertTrackActivities(c *gin.Context) {
 	ctx := c.Request.Context()
 
-	var req trackactivities.TrackActivityReqest
+	var req trackactivities.TrackActivityRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),

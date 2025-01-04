@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func (s *service) UpsertTrackActivities(ctx context.Context, userId uint, request trackactivities.TrackActivityReqest) error {
+func (s *service) UpsertTrackActivities(ctx context.Context, userId uint, request trackactivities.TrackActivityRequest) error {
 	activity, err := s.trackActivitiesRepo.Get(ctx, userId, request.SpotifyId)
 	if err != nil && err != gorm.ErrRecordNotFound {
 		log.Error().Err(err).Msg("error getting track activities")
