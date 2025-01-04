@@ -17,7 +17,7 @@ func (s *service) Search(ctx context.Context, query string, pageSize, pageIndex 
 		log.Error().Err(err).Msg("error Spotify Outbond Search")
 		return nil, err
 	}
-	var trackIds []string
+	trackIds := make([]string, len(trackDetails.Tracks.Items))
 	for idx, item := range trackDetails.Tracks.Items {
 		trackIds[idx] = item.Id
 	}
