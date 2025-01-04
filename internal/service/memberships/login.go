@@ -20,7 +20,7 @@ func (s *service) Login(req memberships.LoginRequest) (string, error) {
 		return "", err
 	}
 
-	token, err := jwt.CreateToken(int64(existingUser.ID), existingUser.Username, s.cfg.Service.SecretJWT)
+	token, err := jwt.CreateToken(existingUser.ID, existingUser.Username, s.cfg.Service.SecretJWT)
 	if err != nil {
 		log.Error().Err(err).Msg("Error generating token")
 		return "", err
